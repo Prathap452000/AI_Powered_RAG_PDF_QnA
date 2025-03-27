@@ -4,10 +4,17 @@ import os
 import tempfile
 from PyPDF2 import PdfReader
 import textwrap
+from dotenv import load_dotenv
 
-# Configure Google API key directly in the code
-# Replace this with your actual API key
-GOOGLE_API_KEY = "Enter your Google API key here"
+# Load environment variables from .env file
+load_dotenv()
+
+# Get Google API key from environment variables
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+if not GOOGLE_API_KEY:
+    st.error("Google API key not found in .env file. Please add GOOGLE_API_KEY to your .env file.")
+    st.stop()
+
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Page configuration
